@@ -1625,29 +1625,7 @@ main {
   color: var(--text-dim);
 }
 
-/* --- RESPONSIVE BREAKPOINTS (antislop R-03: Flawless Mobile) --- */
-@media (max-width: 1024px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  
-  .radar-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .arch-mosaic {
-    grid-template-columns: 1fr;
-  }
-
-  .flagship-card {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-/* --- CHECKOUT DEMO & QRIS STYLES --- */
+/* --- CHECKOUT DEMO & QRIS STYLES (Base Component Styles) --- */
 .checkout-demo-grid {
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
@@ -1702,10 +1680,14 @@ main {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
   padding: 0.5rem 1rem;
+  min-height: 44px;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-muted);
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .amount-btn:hover {
@@ -1731,11 +1713,15 @@ main {
   background: transparent;
   border: 1px solid transparent;
   border-radius: var(--radius-xs);
-  padding: 0.45rem 0.85rem;
+  padding: 0.5rem 0.85rem;
+  min-height: 44px;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-dim);
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .method-tab:hover {
@@ -1772,12 +1758,14 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  max-width: 100%;
 }
 
 .qris-header-badge {
   font-size: 0.6875rem;
   color: var(--text-muted);
   letter-spacing: 0.05em;
+  text-align: center;
 }
 
 .qris-qr-wrapper {
@@ -1786,6 +1774,14 @@ main {
   padding: 10px;
   border-radius: 4px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qris-svg {
+  max-width: 160px;
+  height: auto;
 }
 
 .qris-scan-line {
@@ -1822,6 +1818,7 @@ main {
   font-size: 0.72rem;
   color: var(--text-dim);
   text-align: center;
+  line-height: 1.5;
 }
 
 /* VA Picker Grid */
@@ -1837,10 +1834,14 @@ main {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
   padding: 0.5rem 0.25rem;
-  font-size: 0.72rem;
+  min-height: 44px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .va-bank-btn:hover {
@@ -1908,9 +1909,13 @@ main {
   background-color: var(--bg-base);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
-  padding: 0.2rem 0.55rem;
-  font-size: 0.7rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.75rem;
   color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
 }
 
 /* Webhook Inspector Box */
@@ -1921,6 +1926,7 @@ main {
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .webhook-status-bar {
@@ -1929,6 +1935,7 @@ main {
   gap: 0.4rem;
   margin: 1rem 0;
   font-size: 0.75rem;
+  word-break: break-all;
 }
 
 .webhook-json-container {
@@ -1938,20 +1945,25 @@ main {
   padding: 1rem;
   flex: 1;
   overflow-y: auto;
+  overflow-x: auto;
   max-height: 290px;
+  min-width: 0;
 }
 
 .json-code {
   font-size: 0.75rem;
   line-height: 1.6;
   color: var(--accent-primary);
+  margin: 0;
 }
 
 .inspector-meta {
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
+  gap: 0.5rem;
   font-size: 0.72rem;
+  flex-wrap: wrap;
 }
 
 /* Rail status in Flagship */
@@ -1970,6 +1982,7 @@ main {
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  flex-wrap: wrap;
 }
 
 /* Cost Summary Table */
@@ -1988,23 +2001,27 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  min-width: 0;
 }
 
 .cost-label {
   font-size: 0.7rem;
   color: var(--text-dim);
   letter-spacing: 0.05em;
+  line-height: 1.4;
 }
 
 .cost-val {
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-main);
+  word-break: break-word;
 }
 
 .cost-sub {
   font-size: 0.72rem;
   color: var(--text-muted);
+  line-height: 1.4;
 }
 
 /* API Lang buttons */
@@ -2012,10 +2029,14 @@ main {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
-  padding: 0.2rem 0.65rem;
-  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+  min-height: 38px;
+  font-size: 0.75rem;
   color: var(--text-muted);
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .api-lang-btn:hover {
@@ -2029,7 +2050,51 @@ main {
   color: var(--accent-primary);
 }
 
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (antislop-layoutmobile: Reflow, Rescale, Zero Slop)
+   ========================================================================== */
+
+/* --- TABLET & MEDIUM DESKTOP (<= 1024px) --- */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .hero-visual {
+    max-width: 650px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .checkout-demo-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .arch-mosaic {
+    grid-template-columns: 1fr;
+  }
+
+  .flagship-card {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .cost-summary-box {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .footer-top {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* --- TABLET PORTRAIT & MOBILE (<= 768px) --- */
 @media (max-width: 768px) {
+  /* Hide desktop-only nav controls */
   .desktop-nav,
   .nav-cta,
   .hide-mobile {
@@ -2040,26 +2105,120 @@ main {
     display: flex;
   }
 
+  /* Mobile Drawer Menu (Visible and cleanly styled) */
   .mobile-menu[aria-hidden="false"],
   .mobile-menu:not([hidden]) {
     display: block;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--border-accent);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    padding: 1.25rem 1.5rem 1.75rem;
+    animation: drawer-slide-down 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes drawer-slide-down {
+    from { transform: translateY(-10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .mobile-nav-links {
+    gap: 0.5rem;
+  }
+
+  .mobile-link {
+    font-size: 0.95rem;
+    font-family: var(--font-mono);
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px dashed var(--border-subtle);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-link:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-extra {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  /* Section Scale Adjustment (antislop: avoid huge empty padding) */
+  .section {
+    padding: 4rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-section {
+    padding: 3.5rem 0 2.5rem;
   }
 
   .hero-title {
-    font-size: 2.35rem;
+    font-size: clamp(2rem, 5.5vw, 2.75rem);
   }
 
   .hero-metrics-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .metric-card {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .ticker-controls-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .ticker-btn-group {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .ticker-btn-group button {
+    flex: 1;
+    min-height: 38px;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .cost-summary-box {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1.25rem;
+  }
+
+  .cost-val {
+    font-size: 1.2rem;
+  }
+
+  .terminal-input-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .terminal-input-row .btn {
+    width: 100%;
   }
 
   .footer-top {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .footer-bottom {
@@ -2069,22 +2228,403 @@ main {
   }
 }
 
+/* --- SMALL MOBILE VIEWPORT (<= 480px / 375px / 360px) --- */
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.95rem;
+  /* System Bar Compact */
+  .system-bar {
+    font-size: 0.6875rem;
+    height: auto;
+    padding: 0.35rem 0;
   }
 
-  .btn-large {
-    width: 100%;
+  .system-bar-inner {
+    padding: 0 0.85rem;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  /* Nav Container Compact */
+  .nav-container {
+    padding: 0 0.85rem;
+    gap: 0.75rem;
+  }
+
+  .logo-yume {
+    font-size: 1.4rem;
+  }
+
+  .brand-sub {
+    font-size: 0.58rem;
+  }
+
+  .ctrl-btn {
+    height: 38px;
+    padding: 0 0.55rem;
+    font-size: 0.7rem;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .hero-badge {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.55rem;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.65rem, 7.5vw, 2.15rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    margin-bottom: 1.75rem;
   }
 
   .hero-cta-group {
     flex-direction: column;
     width: 100%;
+    gap: 0.75rem;
   }
 
-  .interactive-map-area {
-    min-height: 320px;
+  .hero-cta-group .btn {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    font-size: 0.8125rem;
+  }
+
+  .live-stream-box {
+    max-height: 180px;
+    font-size: 0.68rem;
+    padding: 0.75rem;
+  }
+
+  .frame-telemetry-controls {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stream-fps {
+    margin-left: 0;
+    width: 100%;
+    text-align: right;
+  }
+
+  /* Section Containers */
+  .section {
+    padding: 3rem 0;
+  }
+
+  .section-container {
+    padding: 0 0.85rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-desc {
+    font-size: 0.85rem;
+  }
+
+  /* Checkout Box on Mobile */
+  .checkout-box {
+    padding: 1.25rem 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .checkout-header {
+    font-size: 0.78rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .amount-btns {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .amount-btn {
+    width: 100%;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+
+  .method-tabs-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.25rem;
+    padding-bottom: 0.35rem;
+  }
+
+  .method-tab {
+    font-size: 0.68rem;
+    padding: 0.4rem 0.2rem;
+    text-align: center;
+    min-height: 44px;
+    letter-spacing: 0;
+  }
+
+  .qris-frame {
+    padding: 1rem 0.65rem;
+    width: 100%;
+  }
+
+  .qris-svg {
+    max-width: 135px;
+  }
+
+  .checkout-action-area .btn {
+    min-height: 48px;
+    font-size: 0.78rem;
+    padding: 0 0.75rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* VA Box */
+  .va-picker-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.45rem;
+  }
+
+  .va-bank-btn {
+    min-height: 44px;
+    font-size: 0.75rem;
+  }
+
+  .va-detail-card {
+    padding: 1rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .va-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .va-val-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .va-number {
+    font-size: 0.85rem;
+  }
+
+  /* E-Wallet */
+  .ewallet-logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .wallet-pill {
+    text-align: center;
+    min-height: 40px;
+    font-size: 0.75rem;
+  }
+
+  /* Webhook Inspector Box */
+  .webhook-inspector-box {
+    padding: 1.25rem 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .inspector-title {
+    font-size: 0.8rem;
+  }
+
+  .webhook-json-container {
+    max-height: 220px;
+    padding: 0.75rem;
+  }
+
+  .json-code {
+    font-size: 0.6875rem;
+    line-height: 1.5;
+  }
+
+  .inspector-meta {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  /* Architecture Mosaic */
+  .arch-card {
+    padding: 1.35rem 1rem;
+  }
+
+  .rail-status-grid {
+    padding: 1rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  /* Pricing / MDR Calculator on Small Screens */
+  .configurator-card {
+    padding: 1.25rem 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .slider-meta {
+    font-size: 0.72rem;
+  }
+
+  .cost-summary-box {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem 0.85rem;
+  }
+
+  .cost-col {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--border-subtle);
+  }
+
+  .cost-col:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .cost-val {
+    font-size: 1.25rem;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    min-height: 48px;
+    white-space: normal;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  /* API Playground Terminal */
+  .cyber-terminal-shell {
+    border-radius: var(--radius-sm);
+  }
+
+  .terminal-bar {
+    padding: 0.65rem 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .terminal-title {
+    font-size: 0.72rem;
+  }
+
+  .terminal-quick-cmds {
+    padding: 0.65rem 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .terminal-quick-cmds .cmd-label {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  .api-lang-btn {
+    flex: 1;
+    min-height: 38px;
+    font-size: 0.72rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .terminal-body {
+    padding: 1rem 0.75rem;
+    font-size: 0.72rem;
+    max-height: 320px;
+  }
+
+  .terminal-input-row {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .terminal-input-row .btn {
+    min-height: 48px;
+    white-space: normal;
+    font-size: 0.78rem;
+  }
+
+  /* Modals */
+  .cyber-modal {
+    width: 95%;
+    padding: 0.5rem;
+  }
+
+  .modal-card {
+    border-radius: var(--radius-sm);
+  }
+
+  .modal-content {
+    padding: 1.15rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .modal-details-box {
+    font-size: 0.72rem;
+    padding: 0.75rem;
+  }
+
+  .code-sm {
+    word-break: break-all;
+  }
+
+  /* Toast notification */
+  .cyber-toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Footer */
+  .main-footer {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .footer-bio {
+    max-width: 100%;
+  }
+
+  .footer-links a {
+    padding: 0.4rem 0;
+    display: inline-block;
+    min-height: 38px;
+    line-height: 38px;
+  }
+}
+
+/* --- ULTRA SMALL PHONES (<= 360px) --- */
+@media (max-width: 360px) {
+  .logo-yume {
+    font-size: 1.25rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .method-tab {
+    font-size: 0.62rem;
+    padding: 0.35rem 0.15rem;
+  }
+
+  .amount-btn {
+    font-size: 0.78rem;
   }
 }
 
@@ -2101,7 +2641,9 @@ main {
     overflow-x: auto;
   }
 
-  .beam-line.active-beam {
+  .qris-scan-line {
     animation: none !important;
+    display: none;
   }
 }
+
