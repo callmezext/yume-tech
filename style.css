@@ -53,6 +53,7 @@
   /* Layout */
   --container-max: 1240px;
   --header-height: 72px;
+  --system-bar-height: 38px;
 }
 
 /* Light High-Contrast Matrix Theme (R-21, R-34: Both themes fully functional) */
@@ -97,7 +98,7 @@ html {
   color: var(--text-main);
   background-color: var(--bg-base);
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + 16px);
+  scroll-padding-top: calc(var(--header-height) + var(--system-bar-height) + 16px);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -171,10 +172,71 @@ ul {
   opacity: 0.25;
 }
 
-/* --- Main Header & Navigation (Directly at the Top) --- */
-.main-header {
+/* --- Top System Telemetry Bar (Strictly Single-Line Horizontal, Zero Vertical Wrap) --- */
+.system-bar {
   position: sticky;
   top: 0;
+  z-index: 101;
+  height: var(--system-bar-height);
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  overflow: hidden;
+}
+
+.system-bar-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  flex-wrap: nowrap;
+}
+
+.sys-item {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+}
+
+.sys-label {
+  color: var(--text-dim);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.sys-val {
+  color: var(--text-main);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.status-indicator.online {
+  background-color: var(--accent-primary);
+}
+
+/* --- Main Header & Navigation --- */
+.main-header {
+  position: sticky;
+  top: var(--system-bar-height);
   z-index: 100;
   height: var(--header-height);
   background-color: var(--bg-overlay);
@@ -2190,6 +2252,19 @@ main {
 
 /* --- SMALL MOBILE VIEWPORT (<= 480px / 375px / 360px) --- */
 @media (max-width: 480px) {
+  :root {
+    --system-bar-height: 32px;
+  }
+
+  .system-bar {
+    height: 32px;
+    font-size: 0.65rem;
+  }
+
+  .system-bar-inner {
+    padding: 0 0.85rem;
+  }
+
   /* Nav Container Compact */
   .nav-container {
     padding: 0 0.85rem;
