@@ -192,13 +192,15 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 /* Clean Typographic Logo (User request: "LOGO nya YUME teks aja") */
 .brand-group {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand-logo {
@@ -233,25 +235,34 @@ ul {
   color: var(--accent-primary);
 }
 
-/* Desktop Nav Links */
+/* Desktop Nav Links (Strict single-line horizontal alignment, no vertical word-wrap) */
 .desktop-nav {
   display: flex;
   align-items: center;
+  flex: 1 1 auto;
+  justify-content: center;
+  min-width: 0;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.75rem;
+  justify-content: center;
+  gap: clamp(0.75rem, 1.4vw, 1.65rem);
+  flex-wrap: nowrap;
 }
 
 .nav-link {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--text-muted);
   transition: color var(--transition-fast);
-  padding: 0.4rem 0.2rem;
+  padding: 0.45rem 0.25rem;
   position: relative;
+  white-space: nowrap; /* Critical: prevent any text from wrapping vertically */
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
 }
 
 .nav-link:hover,
@@ -279,6 +290,8 @@ ul {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .ctrl-btn {
@@ -2036,11 +2049,8 @@ main {
     grid-template-columns: 1.2fr 1fr;
     gap: 2.5rem;
   }
-}
 
-/* --- TABLET PORTRAIT & MOBILE (<= 768px) --- */
-@media (max-width: 768px) {
-  /* Hide desktop-only nav controls */
+  /* Switch navbar to mobile pattern on <= 1024px to guarantee zero text collision */
   .desktop-nav,
   .nav-cta,
   .hide-mobile {
@@ -2050,6 +2060,10 @@ main {
   .mobile-toggle {
     display: flex;
   }
+}
+
+/* --- TABLET PORTRAIT & MOBILE (<= 768px) --- */
+@media (max-width: 768px) {
 
   /* Mobile Drawer Menu (Visible and cleanly styled) */
   .mobile-menu[aria-hidden="false"],
