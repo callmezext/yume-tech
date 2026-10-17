@@ -1,11 +1,11 @@
 /**
- * YUME CYBER INFRASTRUCTURE - APPLICATION LOGIC
+ * YUME CYBER PAYMENT GATEWAY & AUTONOMOUS SETTLEMENT RAILS
  * Strict Anti-Slop Implementation: Zero Dead Controls, Real Behavior, Accessible
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 2. Live System Clock (UTC) ---
+  // --- 1. Live System Clock (UTC) ---
   const liveUtcEl = document.getElementById('live-utc-time');
   function updateClock() {
     if (liveUtcEl) {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateClock();
   setInterval(updateClock, 1000);
 
-  // --- 3. Interactive Cyber Canvas Constellation Network ---
+  // --- 2. Interactive Cyber Canvas Constellation Network ---
   const canvas = document.getElementById('cyber-canvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
       mouse.y = null;
     });
 
-    // Ripple click reaction
     const ripples = [];
     window.addEventListener('click', (e) => {
       ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.8 });
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.clearRect(0, 0, width, height);
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
-      // Draw and update ripples
+      // Draw ripples
       for (let r = ripples.length - 1; r >= 0; r--) {
         const rp = ripples[r];
         rp.radius += 2.5;
@@ -145,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animateCanvas();
   }
 
-  // --- 4. Scramble / Glitch Text Decoder ---
+  // --- 3. Scramble / Glitch Text Decoder ---
   const scrambleTarget = document.getElementById('glitch-heading');
   const chars = '0123456789ABCDEF_#%&<>[]+*';
 
@@ -180,25 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 5. Hero Live Telemetry Stream Monitor ---
+  // --- 4. Hero Live Settlement Stream Monitor ---
   const streamBox = document.getElementById('hero-stream-box');
   const pauseStreamBtn = document.getElementById('pause-stream-btn');
   const clearStreamBtn = document.getElementById('clear-stream-btn');
 
   let streamPaused = false;
-  const sampleMessages = [
-    { tag: 'INGRESS', type: 'ok', msg: 'Paket data terotentikasi via HND-01 (Tokyo). Latensi: 12.4ms' },
-    { tag: 'CONSENSUS', type: 'ok', msg: 'Verifikasi hash blok transaksi node #88492 valid.' },
-    { tag: 'ROUTING', type: 'warn', msg: 'Jalur kabel laut trans-pasifik padat: re-routing via SIN-01.' },
-    { tag: 'SECURITY', type: 'ok', msg: 'Serangan SYN-flood 180K pps dibersihkan pada edge firewall.' },
-    { tag: 'TLS-HANDSHAKE', type: 'ok', msg: 'Kunci sesi Kyber-1024 diperbarui untuk 32 worker aktif.' },
-    { tag: 'SYNC', type: 'ok', msg: 'Cluster Frankfurt FRA-01 sinkron dengan Jakarta JKT-02.' },
-    { tag: 'MICROVM', type: 'ok', msg: 'Instance baru boot dalam 0.82ms pada zona ap-southeast-1.' },
+  const paymentStreamEvents = [
+    { tag: 'QRIS-GPN', type: 'ok', msg: 'Pelunasan Rp 150.000 via GoPay. Konfirmasi: 0.38s.' },
+    { tag: 'VA-BCA', type: 'ok', msg: 'Tagihan #ORD-9812 lunas Rp 1.250.000. Webhook dikirim (12ms).' },
+    { tag: 'AUTO-ROUTING', type: 'ok', msg: 'Antrean Bank Mandiri dialihkan ke Direct Rail 2. Latensi normal.' },
+    { tag: 'BI-FAST', type: 'ok', msg: 'Batch settlement Rp 48.200.000 ke 14 merchant berhasil dicairkan.' },
+    { tag: 'FRAUD-GUARD', type: 'warn', msg: 'Upaya transaksi kartu anomali berhasil dinetralisir dalam 42ms.' },
+    { tag: 'VA-BNI', type: 'ok', msg: 'Verifikasi transfer m-Banking Rp 500.000 sukses otomatis.' },
+    { tag: 'E-WALLET', type: 'ok', msg: 'OVO & ShopeePay push payment Rp 89.000 selesai instan.' },
+    { tag: 'PCI-DSS', type: 'ok', msg: 'Audit integritas token transaksi SHA-512 lulus verifikasi.' },
+    { tag: 'VA-BRI', type: 'ok', msg: 'Virtual Account BRI Rp 2.800.000 diverifikasi via BRIVA Direct.' },
   ];
 
-  function appendStreamLine() {
+  function appendPaymentStreamLine() {
     if (streamPaused || !streamBox) return;
-    const item = sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
+    const item = paymentStreamEvents[Math.floor(Math.random() * paymentStreamEvents.length)];
     const now = new Date();
     const timeStr = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
 
@@ -212,17 +213,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     streamBox.insertBefore(line, streamBox.firstChild);
 
-    // Keep log manageable
-    if (streamBox.children.length > 35) {
+    if (streamBox.children.length > 25) {
       streamBox.removeChild(streamBox.lastChild);
     }
   }
 
-  // Pre-fill a few lines
+  // Pre-fill log lines
   for (let i = 0; i < 4; i++) {
-    appendStreamLine();
+    appendPaymentStreamLine();
   }
-  const streamInterval = setInterval(appendStreamLine, 2400);
+  setInterval(appendPaymentStreamLine, 2200);
 
   if (pauseStreamBtn) {
     pauseStreamBtn.addEventListener('click', () => {
@@ -235,25 +235,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (clearStreamBtn) {
     clearStreamBtn.addEventListener('click', () => {
       if (streamBox) streamBox.innerHTML = '';
-      showToast('Buffer telemetri dibersihkan');
+      showToast('Log telemetri pembayaran dibersihkan');
     });
   }
 
-  // Jitter subtle variations in hero numbers
+  // Subtle real-time jitter in hero metrics
   const liveLatencyEl = document.getElementById('live-latency');
-  const liveBwEl = document.getElementById('live-bandwidth');
+  const liveSuccessEl = document.getElementById('live-success-rate');
   setInterval(() => {
     if (liveLatencyEl) {
-      const val = (11.2 + Math.random() * 1.4).toFixed(1);
+      const val = (0.39 + Math.random() * 0.05).toFixed(2);
       liveLatencyEl.textContent = val;
     }
-    if (liveBwEl) {
-      const bw = (48.0 + Math.random() * 0.7).toFixed(1);
-      liveBwEl.textContent = bw;
+    if (liveSuccessEl) {
+      const rate = (99.97 + Math.random() * 0.02).toFixed(2);
+      liveSuccessEl.textContent = rate;
     }
-  }, 3500);
+  }, 3200);
 
-  // --- 6. Running Ticker Speed and Pause Controls ---
+  // --- 5. Running Ticker Speed and Pause Controls ---
   const tickerToggleBtn = document.getElementById('ticker-toggle-btn');
   const tickerToggleLabel = document.getElementById('ticker-toggle-label');
   const tickerSpeedBtn = document.getElementById('ticker-speed-btn');
@@ -262,8 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const marquee2 = document.querySelector('#marquee-track-2 .marquee-content');
 
   let tickerPaused = false;
-  let speedMultiplier = 1;
-
   if (tickerToggleBtn) {
     tickerToggleBtn.addEventListener('click', () => {
       tickerPaused = !tickerPaused;
@@ -290,389 +288,420 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 7. Interactive Node Radar & Inspector ---
-  const nodeHubs = {
-    tokyo: {
-      name: 'TOKYO CORE HUB [HND-01]',
-      status: 'OPERASIONAL AKTIF',
-      latency: '14.2 ms',
-      bw: '100 Gbps Dedicated Dark Fiber',
-      workers: '32 Unit Virtual',
-      coords: '35.6762° N, 139.6503° E',
-      basePing: 14
-    },
-    singapore: {
-      name: 'SINGAPURA EQUINIX HUB [SIN-01]',
-      status: 'OPERASIONAL AKTIF',
-      latency: '18.6 ms',
-      bw: '80 Gbps Direct IX Link',
-      workers: '24 Unit Virtual',
-      coords: '1.3521° N, 103.8198° E',
-      basePing: 18
-    },
-    jakarta: {
-      name: 'JAKARTA CYBER HUB [JKT-02]',
-      status: 'OPERASIONAL AKTIF (OPTIMAL)',
-      latency: '4.8 ms',
-      bw: '60 Gbps OpenIXP Direct',
-      workers: '28 Unit Virtual',
-      coords: '6.2088° S, 106.8456° E',
-      basePing: 5
-    },
-    frankfurt: {
-      name: 'FRANKFURT MAIN HUB [FRA-01]',
-      status: 'OPERASIONAL AKTIF',
-      latency: '162.4 ms',
-      bw: '120 Gbps DE-CIX Backbone',
-      workers: '40 Unit Virtual',
-      coords: '50.1109° N, 8.6821° E',
-      basePing: 160
-    },
-    virginia: {
-      name: 'VIRGINIA DATA CORRIDOR [IAD-03]',
-      status: 'OPERASIONAL AKTIF',
-      latency: '198.1 ms',
-      bw: '150 Gbps Transatlantic Line',
-      workers: '48 Unit Virtual',
-      coords: '38.9072° N, 77.0369° W',
-      basePing: 195
-    },
-    sydney: {
-      name: 'SYDNEY PACIFIC HUB [SYD-01]',
-      status: 'OPERASIONAL AKTIF',
-      latency: '88.3 ms',
-      bw: '50 Gbps Southern Cross Cable',
-      workers: '20 Unit Virtual',
-      coords: '33.8688° S, 151.2093° E',
-      basePing: 88
-    }
+  // --- 6. Interactive Payment Checkout Simulator (#simulator) ---
+  let currentAmount = 150000;
+  let currentMethod = 'qris';
+  let currentBank = 'BCA';
+  let currentOrderId = 'ORD-2026-9812';
+
+  const amountBtns = document.querySelectorAll('.amount-btn');
+  const methodTabs = document.querySelectorAll('.method-tab');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  const vaBankBtns = document.querySelectorAll('.va-bank-btn');
+  const vaDisplayNumber = document.getElementById('va-display-number');
+  const vaDisplayAmount = document.getElementById('va-display-amount');
+  const copyVaBtn = document.getElementById('copy-va-btn');
+  const demoOrderIdEl = document.getElementById('demo-order-id');
+
+  const webhookBadge = document.getElementById('webhook-badge');
+  const webhookJsonOutput = document.getElementById('webhook-json-output');
+
+  const simulateQrisBtn = document.getElementById('simulate-qris-pay-btn');
+  const simulateVaBtn = document.getElementById('simulate-va-pay-btn');
+  const simulateEwalletBtn = document.getElementById('simulate-ewallet-pay-btn');
+
+  const bankVaNumbers = {
+    BCA: '8801 2948 1029 4819',
+    MANDIRI: '8902 4410 8291 0021',
+    BNI: '9881 5028 1928 3481',
+    BRI: '1028 4910 8821 9901'
   };
 
-  let activeHubKey = 'tokyo';
-  const hubMarkers = document.querySelectorAll('.hub-marker');
-  const selectedHubNameEl = document.getElementById('selected-hub-name');
-  const selectedHubStatusEl = document.getElementById('selected-hub-status');
-  const selectedHubLatencyEl = document.getElementById('selected-hub-latency');
-  const selectedHubBwEl = document.getElementById('selected-hub-bw');
-  const selectedHubWorkersEl = document.getElementById('selected-hub-workers');
-  const hudCoordsEl = document.getElementById('hud-coords');
-  const radarHoverInfo = document.getElementById('radar-hover-info');
-  const triggerPingBtn = document.getElementById('trigger-ping-btn');
-  const pingConsoleResult = document.getElementById('ping-console-result');
-
-  function selectHub(key) {
-    if (!nodeHubs[key]) return;
-    activeHubKey = key;
-    const hub = nodeHubs[key];
-
-    hubMarkers.forEach((m) => {
-      m.classList.toggle('active', m.getAttribute('data-hub') === key);
-    });
-
-    if (selectedHubNameEl) selectedHubNameEl.textContent = hub.name;
-    if (selectedHubStatusEl) selectedHubStatusEl.textContent = hub.status;
-    if (selectedHubLatencyEl) selectedHubLatencyEl.textContent = hub.latency;
-    if (selectedHubBwEl) selectedHubBwEl.textContent = hub.bw;
-    if (selectedHubWorkersEl) selectedHubWorkersEl.textContent = hub.workers;
-    if (hudCoordsEl) hudCoordsEl.textContent = hub.coords;
-    if (radarHoverInfo) radarHoverInfo.textContent = `TERHUBUNG: ${hub.name.split(' ')[0]}`;
+  function formatRupiah(num) {
+    return 'Rp ' + Number(num).toLocaleString('id-ID');
   }
 
-  hubMarkers.forEach((marker) => {
-    marker.addEventListener('click', () => {
-      const hubKey = marker.getAttribute('data-hub');
-      selectHub(hubKey);
+  function updateWebhookPayload(status = 'UNPAID', event = 'payment.pending') {
+    if (!webhookJsonOutput) return;
+
+    const now = new Date().toISOString();
+    const payload = {
+      event: event,
+      order_id: currentOrderId,
+      status: status,
+      amount: currentAmount,
+      currency: "IDR",
+      payment_method: currentMethod,
+      channel: currentMethod === 'va' ? `${currentBank}_VA` : currentMethod.toUpperCase(),
+      created_at: now,
+      settlement_status: status === 'PAID' ? 'SETTLED_INSTANT' : 'PENDING',
+      message: status === 'PAID'
+        ? `Pembayaran telah lunas diverifikasi dalam 0.38 detik melalui ${currentMethod.toUpperCase()}`
+        : "Menunggu penyelesaian transaksi dari pelanggan"
+    };
+
+    webhookJsonOutput.innerHTML = `<code>${JSON.stringify(payload, null, 2)}</code>`;
+
+    if (webhookBadge) {
+      if (status === 'PAID') {
+        webhookBadge.textContent = '200 OK // PEMBAYARAN LUNAS DITERIMA';
+        webhookBadge.style.color = 'var(--accent-primary)';
+        webhookBadge.style.borderColor = 'var(--accent-primary)';
+      } else {
+        webhookBadge.textContent = 'MENUNGGU PEMBAYARAN...';
+        webhookBadge.style.color = '';
+        webhookBadge.style.borderColor = '';
+      }
+    }
+  }
+
+  // Handle Amount Picker
+  amountBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      amountBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentAmount = parseInt(btn.getAttribute('data-amount'), 10);
+
+      if (vaDisplayAmount) vaDisplayAmount.textContent = formatRupiah(currentAmount);
+      updateWebhookPayload('UNPAID', 'payment.pending');
+      showToast(`Nominal checkout diubah ke ${formatRupiah(currentAmount)}`);
     });
   });
 
-  // Live Ping Simulator
-  if (triggerPingBtn && pingConsoleResult) {
-    triggerPingBtn.addEventListener('click', () => {
-      triggerPingBtn.disabled = true;
-      triggerPingBtn.classList.add('btn-ghost');
-      pingConsoleResult.innerHTML = `Mengirim ICMP paket echo ke ${nodeHubs[activeHubKey].name}...`;
+  // Handle Method Tab Switching
+  methodTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      methodTabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
 
-      let packets = 0;
-      const base = nodeHubs[activeHubKey].basePing;
-      const results = [];
+      const targetTab = tab.getAttribute('data-tab');
+      currentMethod = targetTab;
 
-      const interval = setInterval(() => {
-        packets++;
-        const curPing = (base + (Math.random() - 0.5) * 2.8).toFixed(1);
-        results.push(curPing);
+      tabPanels.forEach((panel) => {
+        if (panel.id === `tab-${targetTab}`) {
+          panel.classList.add('active');
+        } else {
+          panel.classList.remove('active');
+        }
+      });
 
-        pingConsoleResult.innerHTML = `
-          Paket ${packets}/3 diterima dari ${activeHubKey.toUpperCase()}: waktu=${curPing}ms ttl=56
+      updateWebhookPayload('UNPAID', 'payment.pending');
+    });
+  });
+
+  // Handle VA Bank Selection
+  vaBankBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      vaBankBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentBank = btn.getAttribute('data-bank');
+
+      if (vaDisplayNumber) {
+        vaDisplayNumber.textContent = bankVaNumbers[currentBank] || '8801 0000 0000 0000';
+      }
+      updateWebhookPayload('UNPAID', 'payment.pending');
+    });
+  });
+
+  // Copy VA Number
+  if (copyVaBtn && vaDisplayNumber) {
+    copyVaBtn.addEventListener('click', () => {
+      const num = vaDisplayNumber.textContent.replace(/\s+/g, '');
+      navigator.clipboard.writeText(num).then(() => {
+        showToast(`Nomor Virtual Account ${currentBank} (${num}) tersalin!`);
+      }).catch(() => {
+        showToast('Gagal menyalin nomor VA');
+      });
+    });
+  }
+
+  // Countdown timer for QRIS (Decrements realistically)
+  const qrisTimerEl = document.getElementById('qris-countdown');
+  let qrisSeconds = 14 * 60 + 58;
+  setInterval(() => {
+    if (qrisTimerEl && qrisSeconds > 0) {
+      qrisSeconds--;
+      const m = String(Math.floor(qrisSeconds / 60)).padStart(2, '0');
+      const s = String(qrisSeconds % 60).padStart(2, '0');
+      qrisTimerEl.textContent = `${m}:${s}`;
+    }
+  }, 1000);
+
+  // Trigger Simulated Payment
+  function triggerSuccessfulPayment(channelName) {
+    updateWebhookPayload('PAID', 'payment.captured');
+    showToast(`Sukses! Pembayaran ${channelName} ${formatRupiah(currentAmount)} terverifikasi instan!`);
+
+    // Add immediate log to hero stream box as well
+    if (streamBox) {
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
+      const line = document.createElement('div');
+      line.className = 'stream-line';
+      line.innerHTML = `
+        <span class="stream-time">[${timeStr}]</span>
+        <span class="stream-tag ok">[CHECKOUT-DEMO]</span>
+        <span class="stream-msg">${channelName} lunas ${formatRupiah(currentAmount)} (${currentOrderId}). Webhook 200 OK.</span>
+      `;
+      streamBox.insertBefore(line, streamBox.firstChild);
+    }
+  }
+
+  if (simulateQrisBtn) {
+    simulateQrisBtn.addEventListener('click', () => {
+      triggerSuccessfulPayment('QRIS DINAMIS');
+    });
+  }
+
+  if (simulateVaBtn) {
+    simulateVaBtn.addEventListener('click', () => {
+      triggerSuccessfulPayment(`VA ${currentBank}`);
+    });
+  }
+
+  if (simulateEwalletBtn) {
+    simulateEwalletBtn.addEventListener('click', () => {
+      triggerSuccessfulPayment('E-WALLET PUSH');
+    });
+  }
+
+  // --- 7. Transparent MDR Pricing Calculator (#pricing) ---
+  const volumeSlider = document.getElementById('volume-slider');
+  const volumeDisplayVal = document.getElementById('volume-display-val');
+  const channelMixSelect = document.getElementById('channel-mix-select');
+  const estimatedCostDisplay = document.getElementById('estimated-cost-display');
+  const pricingSignupBtn = document.getElementById('pricing-signup-btn');
+
+  function calculateMDR() {
+    if (!volumeSlider || !estimatedCostDisplay) return;
+
+    const volumeMillion = parseInt(volumeSlider.value, 10);
+    const totalVolume = volumeMillion * 1000000;
+
+    if (volumeDisplayVal) {
+      volumeDisplayVal.textContent = formatRupiah(totalVolume);
+    }
+
+    const mix = channelMixSelect ? channelMixSelect.value : 'balanced';
+    let qrisRatio = 0.5;
+    let vaRatio = 0.5;
+
+    if (mix === 'qris-heavy') {
+      qrisRatio = 0.8;
+      vaRatio = 0.2;
+    } else if (mix === 'va-heavy') {
+      qrisRatio = 0.2;
+      vaRatio = 0.8;
+    }
+
+    // QRIS MDR = 0.7% of volume
+    const qrisCost = totalVolume * qrisRatio * 0.007;
+
+    // VA cost = Rp 2.500 per transaction (assuming average basket size of Rp 250.000)
+    const vaVolume = totalVolume * vaRatio;
+    const estimatedVaTrxCount = Math.max(1, Math.round(vaVolume / 250000));
+    const vaCost = estimatedVaTrxCount * 2500;
+
+    const totalEstimatedCost = Math.round(qrisCost + vaCost);
+    estimatedCostDisplay.textContent = formatRupiah(totalEstimatedCost);
+  }
+
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', calculateMDR);
+  }
+
+  if (channelMixSelect) {
+    channelMixSelect.addEventListener('change', calculateMDR);
+  }
+
+  // Initial calculation
+  calculateMDR();
+
+  // --- 8. API Playground & Webhook Console (#api-console) ---
+  const apiLangBtns = document.querySelectorAll('.api-lang-btn');
+  const apiCodeSnippet = document.getElementById('api-code-snippet');
+  const runApiTestBtn = document.getElementById('run-api-test-btn');
+
+  const codeSnippets = {
+    curl: `curl -X POST https://api.yume.tech/v1/charges \\
+  -H "Authorization: Bearer ym_sec_test_99a8b1c2d3e4f5" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "order_id": "ORD-2026-9812",
+    "amount": 150000,
+    "payment_type": "qris",
+    "customer": {
+      "name": "Budi Pratama",
+      "email": "budi@perusahaan.com"
+    }
+  }'`,
+
+    node: `const Yume = require('@yume/payment-gateway');
+const yume = new Yume('ym_sec_test_99a8b1c2d3e4f5');
+
+async function createCharge() {
+  const charge = await yume.charges.create({
+    order_id: 'ORD-2026-9812',
+    amount: 150000,
+    payment_type: 'qris',
+    customer: {
+      name: 'Budi Pratama',
+      email: 'budi@perusahaan.com'
+    }
+  });
+
+  console.log('QRIS String:', charge.qr_string);
+  console.log('Checkout URL:', charge.payment_url);
+}`,
+
+    python: `import yume
+
+client = yume.Client(api_key="ym_sec_test_99a8b1c2d3e4f5")
+
+charge = client.charges.create(
+    order_id="ORD-2026-9812",
+    amount=150000,
+    payment_type="qris",
+    customer={
+        "name": "Budi Pratama",
+        "email": "budi@perusahaan.com"
+    }
+)
+
+print(f"Charge ID: {charge.id}")
+print(f"Status: {charge.status}")`,
+
+    php: `<?php
+require_once 'vendor/autoload.php';
+
+$yume = new \\Yume\\PaymentClient('ym_sec_test_99a8b1c2d3e4f5');
+
+$charge = $yume->charges->create([
+    'order_id'     => 'ORD-2026-9812',
+    'amount'       => 150000,
+    'payment_type' => 'qris',
+    'customer'     => [
+        'name'  => 'Budi Pratama',
+        'email' => 'budi@perusahaan.com'
+    ]
+]);
+
+echo "QR String: " . $charge->qr_string;`
+  };
+
+  let activeApiLang = 'curl';
+
+  function renderApiSnippet(lang) {
+    if (!apiCodeSnippet) return;
+    const snippet = codeSnippets[lang] || codeSnippets.curl;
+    apiCodeSnippet.innerHTML = `<pre><code>${snippet}</code></pre>`;
+  }
+
+  apiLangBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      apiLangBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeApiLang = btn.getAttribute('data-lang');
+      renderApiSnippet(activeApiLang);
+    });
+  });
+
+  // Render initial snippet
+  renderApiSnippet('curl');
+
+  // Run API Test Simulation
+  if (runApiTestBtn && apiCodeSnippet) {
+    runApiTestBtn.addEventListener('click', () => {
+      runApiTestBtn.disabled = true;
+      runApiTestBtn.innerHTML = '<span>⏳ MENGIRIM REQUEST KE GATEWAY SANDBOX...</span>';
+
+      setTimeout(() => {
+        const responseJson = {
+          status_code: 201,
+          status_message: "Created",
+          charge_id: "ch_ym_" + Math.random().toString(36).substring(2, 10),
+          order_id: "ORD-2026-9812",
+          amount: 150000,
+          currency: "IDR",
+          payment_type: "qris",
+          qr_string: "00020101021226670014ID.LINKAJA.WWW011893600918000001020215204581253033605802ID5910YUME TECH6007JAKARTA62070703A016304E8A2",
+          status: "pending",
+          expiry_time: new Date(Date.now() + 15 * 60000).toISOString(),
+          webhook_url: "https://api.merchant.com/webhook"
+        };
+
+        apiCodeSnippet.innerHTML = `
+          <div style="color: var(--accent-primary); margin-bottom: 0.5rem; font-weight: 700;">
+            HTTP/1.1 201 Created (Latensi: 0.28s)
+          </div>
+          <pre><code>${JSON.stringify(responseJson, null, 2)}</code></pre>
         `;
 
-        if (packets >= 3) {
-          clearInterval(interval);
-          triggerPingBtn.disabled = false;
-          triggerPingBtn.classList.remove('btn-ghost');
-          const avg = (results.reduce((a, b) => parseFloat(a) + parseFloat(b), 0) / 3).toFixed(1);
-          pingConsoleResult.innerHTML = `
-            <strong>SELESAI:</strong> 3 paket terkirim, 3 diterima (0% loss). Rata-rata: <span class="text-accent">${avg}ms</span>.
-          `;
-        }
+        runApiTestBtn.disabled = false;
+        runApiTestBtn.innerHTML = '<span>▶ KIRIM PERMINTAAN API SIMULASI (TEST RUN)</span>';
+        showToast('Respon API 201 Created berhasil diterima!');
       }, 350);
     });
   }
 
-  // --- 8. Flagship Load Slider Simulation ---
-  const loadSlider = document.getElementById('load-slider');
-  const loadValEl = document.getElementById('load-val');
-  const responseTimeValEl = document.getElementById('response-time-val');
-  const autoNodesValEl = document.getElementById('auto-nodes-val');
-
-  if (loadSlider) {
-    loadSlider.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value, 10);
-      if (loadValEl) loadValEl.textContent = `${val}%`;
-
-      // Calculate dynamic simulated metrics
-      const respTime = (0.8 + (val / 100) * 1.5).toFixed(1);
-      const nodes = Math.max(2, Math.round(val / 8));
-
-      if (responseTimeValEl) responseTimeValEl.textContent = `${respTime}ms`;
-      if (autoNodesValEl) autoNodesValEl.textContent = `${nodes} Unit`;
-    });
-  }
-
-  // --- 9. Gateway Configurator & Token Generator ---
-  const cfgRegion = document.getElementById('cfg-region');
-  const cfgProtocol = document.getElementById('cfg-protocol');
-  const cfgWorkload = document.getElementById('cfg-workload');
-  const cfgRedundancy = document.getElementById('cfg-redundancy');
-  const configCodePreview = document.getElementById('config-code-preview');
-  const copyTokenBtn = document.getElementById('copy-token-btn');
-  const nodeConfigForm = document.getElementById('node-config-form');
-
-  function updateConfigSnippet() {
-    if (!configCodePreview) return;
-    const region = cfgRegion ? cfgRegion.value : 'tokyo';
-    const proto = cfgProtocol ? cfgProtocol.value : 'ym-mesh';
-    const workload = cfgWorkload ? cfgWorkload.value : 'edge-api';
-    const redundancy = cfgRedundancy ? cfgRedundancy.value : 'multi-zone';
-
-    const sampleToken = 'ym_' + Math.random().toString(36).substring(2, 11);
-    configCodePreview.innerHTML = `<code>curl -sSL https://yume.tech/install.sh | bash -s -- --region=${region} --proto=${proto} --profile=${workload} --redundancy=${redundancy} --token=${sampleToken}</code>`;
-  }
-
-  [cfgRegion, cfgProtocol, cfgWorkload, cfgRedundancy].forEach((select) => {
-    if (select) {
-      select.addEventListener('change', () => {
-        updateConfigSnippet();
-      });
-    }
-  });
-
-  // Copy to clipboard
-  if (copyTokenBtn && configCodePreview) {
-    copyTokenBtn.addEventListener('click', () => {
-      const textToCopy = configCodePreview.textContent;
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        showToast('Perintah konfigurasi tersalin ke clipboard!');
-      }).catch(() => {
-        showToast('Gagal menyalin perintah');
-      });
-    });
-  }
-
-  // Modal Dialog Form Submission (R-26, R-32 Accessible)
-  const deployModal = document.getElementById('deploy-modal');
+  // --- 9. Merchant Registration Modal & Success Dialog (Accessible) ---
+  const merchantModal = document.getElementById('merchant-modal');
+  const successModal = document.getElementById('success-modal');
+  const merchantRegForm = document.getElementById('merchant-reg-form');
   const modalCloseBtn = document.getElementById('modal-close-btn');
-  const modalConfirmBtn = document.getElementById('modal-confirm-btn');
-  const modalNodeId = document.getElementById('modal-node-id');
+  const successModalClose = document.getElementById('success-modal-close');
+  const successModalConfirm = document.getElementById('success-modal-confirm');
 
-  if (nodeConfigForm) {
-    nodeConfigForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const generatedId = 'ym-node-' + Math.random().toString(36).substring(2, 8);
-      if (modalNodeId) modalNodeId.textContent = generatedId;
+  const navMerchantBtn = document.getElementById('nav-merchant-btn');
+  const mobileMerchantBtn = document.getElementById('mobile-merchant-btn');
+  const resMerchantId = document.getElementById('res-merchant-id');
+  const resSecretKey = document.getElementById('res-secret-key');
 
-      if (deployModal && typeof deployModal.showModal === 'function') {
-        deployModal.showModal();
-      } else {
-        alert(`Node berhasil disiapkan dengan ID: ${generatedId}`);
-      }
-    });
-  }
-
-  function closeModal() {
-    if (deployModal && deployModal.open) {
-      deployModal.close();
+  function openMerchantModal() {
+    if (merchantModal && typeof merchantModal.showModal === 'function') {
+      merchantModal.showModal();
     }
   }
 
-  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
-  if (modalConfirmBtn) modalConfirmBtn.addEventListener('click', closeModal);
+  function closeAllModals() {
+    if (merchantModal && merchantModal.open) merchantModal.close();
+    if (successModal && successModal.open) successModal.close();
+  }
 
-  // Close modal on Escape
+  if (navMerchantBtn) navMerchantBtn.addEventListener('click', openMerchantModal);
+  if (mobileMerchantBtn) mobileMerchantBtn.addEventListener('click', openMerchantModal);
+  if (pricingSignupBtn) pricingSignupBtn.addEventListener('click', openMerchantModal);
+
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeAllModals);
+  if (successModalClose) successModalClose.addEventListener('click', closeAllModals);
+  if (successModalConfirm) successModalConfirm.addEventListener('click', closeAllModals);
+
+  // Form Submit
+  if (merchantRegForm) {
+    merchantRegForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const generatedMerchantId = 'YM_MERCH_' + Math.floor(10000 + Math.random() * 90000);
+      const generatedKey = 'ym_sec_test_' + Math.random().toString(36).substring(2, 16);
+
+      if (resMerchantId) resMerchantId.textContent = generatedMerchantId;
+      if (resSecretKey) resSecretKey.textContent = generatedKey;
+
+      if (merchantModal && merchantModal.open) merchantModal.close();
+      if (successModal && typeof successModal.showModal === 'function') {
+        successModal.showModal();
+      }
+      showToast('Kredensial Sandbox API berhasil dibuat!');
+    });
+  }
+
+  // Close modals on Escape
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && deployModal && deployModal.open) {
-      closeModal();
+    if (e.key === 'Escape') {
+      closeAllModals();
     }
   });
 
-  // --- 10. Interactive Cyber Terminal Shell CLI (#console) ---
-  const terminalForm = document.getElementById('terminal-form');
-  const terminalInput = document.getElementById('terminal-input');
-  const terminalDisplay = document.getElementById('terminal-display');
-  const quickCmdBtns = document.querySelectorAll('.quick-cmd-btn');
-  const quickTerminalTrigger = document.getElementById('quick-terminal-trigger');
-
-  const commandHistory = [];
-  let historyIndex = -1;
-
-  function appendTerminalLine(text, isError = false, isAccent = false) {
-    if (!terminalDisplay) return;
-    const line = document.createElement('div');
-    line.className = 'term-line';
-    if (isError) line.style.color = 'var(--accent-danger)';
-    if (isAccent) line.style.color = 'var(--accent-primary)';
-    line.textContent = text;
-    terminalDisplay.appendChild(line);
-    terminalDisplay.scrollTop = terminalDisplay.scrollHeight;
-  }
-
-  function handleCommand(rawCmd) {
-    const cmd = rawCmd.trim();
-    if (!cmd) return;
-
-    appendTerminalLine(`yume> ${cmd}`, false, true);
-    commandHistory.push(cmd);
-    historyIndex = commandHistory.length;
-
-    const parts = cmd.toLowerCase().split(' ');
-    const root = parts[0];
-
-    switch (root) {
-      case 'help':
-        appendTerminalLine('Daftar perintah yang tersedia:');
-        appendTerminalLine('  status   - Cek status operasional cluster & node global');
-        appendTerminalLine('  nodes    - Tampilkan daftar 6 lokasi server tepi YUME');
-        appendTerminalLine('  ping     - Tes latensi transmisi (cth: ping tokyo)');
-        appendTerminalLine('  diag     - Diagnostik protokol jaringan dan enkripsi');
-        appendTerminalLine('  theme    - Beralih mode tema (dark/light)');
-        appendTerminalLine('  deploy   - Luncurkan instance konfigurator');
-        appendTerminalLine('  clear    - Bersihkan layar terminal');
-        appendTerminalLine('  date     - Waktu telemetri sistem saat ini');
-        break;
-
-      case 'status':
-        appendTerminalLine('[STATUS KERNEL] Sistem Inti: NORMAL');
-        appendTerminalLine('  Node Aktif: 128 server di 6 benua');
-        appendTerminalLine('  Tingkat Integritas: 100% (Zero-Trust Verified)');
-        appendTerminalLine('  Rata-rata Ping Global: 11.8ms');
-        break;
-
-      case 'nodes':
-        appendTerminalLine('LOKASI NODE CLUSTER YUME:');
-        Object.keys(nodeHubs).forEach((key) => {
-          const h = nodeHubs[key];
-          appendTerminalLine(`  * [${key.toUpperCase()}] ${h.name} - Ping: ${h.latency}`);
-        });
-        break;
-
-      case 'ping':
-        const target = parts[1] || 'tokyo';
-        if (nodeHubs[target]) {
-          appendTerminalLine(`Mengirim 3 paket ICMP ke [${target.toUpperCase()}]...`);
-          setTimeout(() => {
-            appendTerminalLine(`  Paket 1: ${nodeHubs[target].latency} (ttl 56)`);
-            appendTerminalLine(`  Paket 2: ${(parseFloat(nodeHubs[target].latency) + 0.3).toFixed(1)}ms`);
-            appendTerminalLine(`  Paket 3: ${(parseFloat(nodeHubs[target].latency) - 0.2).toFixed(1)}ms`);
-            appendTerminalLine('Koneksi stabil tanpa paket drop.');
-          }, 300);
-        } else {
-          appendTerminalLine(`Node '${target}' tidak dikenali. Pilih: tokyo, jakarta, singapore, frankfurt, virginia, sydney`, true);
-        }
-        break;
-
-      case 'diag':
-        appendTerminalLine('[DIAGNOSTIK SISTEM]');
-        appendTerminalLine('  Enkripsi: Kyber-1024 + ChaCha20-Poly1305 (Post-Quantum)');
-        appendTerminalLine('  Overhead Runtime: < 0.8ms');
-        appendTerminalLine('  DDoS Mitigation: scrubbing aktif pada layer L3/L4/L7');
-        break;
-
-      case 'theme':
-        toggleTheme();
-        appendTerminalLine(`Tema dialihkan ke mode: ${document.documentElement.getAttribute('data-theme')}`);
-        break;
-
-      case 'deploy':
-        const gatewaySec = document.getElementById('gateway');
-        if (gatewaySec) {
-          gatewaySec.scrollIntoView({ behavior: 'smooth' });
-          appendTerminalLine('Mengarahkan pandangan ke formulir deployment...');
-        }
-        break;
-
-      case 'date':
-        appendTerminalLine(`Waktu Sistem: ${new Date().toUTCString()}`);
-        break;
-
-      case 'clear':
-        terminalDisplay.innerHTML = '';
-        break;
-
-      default:
-        appendTerminalLine(`Perintah tidak dikenal: '${cmd}'. Ketik 'help' untuk panduan.`, true);
-        break;
-    }
-  }
-
-  if (terminalForm && terminalInput) {
-    terminalForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      handleCommand(terminalInput.value);
-      terminalInput.value = '';
-    });
-
-    // History traversal via Up/Down Arrow
-    terminalInput.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowUp') {
-        if (historyIndex > 0) {
-          historyIndex--;
-          terminalInput.value = commandHistory[historyIndex] || '';
-        }
-      } else if (e.key === 'ArrowDown') {
-        if (historyIndex < commandHistory.length - 1) {
-          historyIndex++;
-          terminalInput.value = commandHistory[historyIndex] || '';
-        } else {
-          historyIndex = commandHistory.length;
-          terminalInput.value = '';
-        }
-      }
-    });
-  }
-
-  quickCmdBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const cmd = btn.getAttribute('data-cmd');
-      if (terminalInput) {
-        terminalInput.value = cmd;
-        handleCommand(cmd);
-        terminalInput.value = '';
-      }
-    });
-  });
-
-  if (quickTerminalTrigger) {
-    quickTerminalTrigger.addEventListener('click', () => {
-      const consoleSec = document.getElementById('console');
-      if (consoleSec) {
-        consoleSec.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => {
-          if (terminalInput) terminalInput.focus();
-        }, 400);
-      }
-    });
-  }
-
-  // --- 11. Theme Mode Switcher (Obsidian Dark / Light Matrix) ---
+  // --- 10. Theme Mode Switcher (Obsidian Dark / Light Matrix) ---
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
   const themeIcon = document.getElementById('theme-icon');
 
@@ -695,13 +724,12 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggleBtn.addEventListener('click', toggleTheme);
   }
 
-  // Init theme from storage or system
   const savedTheme = localStorage.getItem('yume-theme');
   if (savedTheme) {
     setTheme(savedTheme);
   }
 
-  // --- 12. Mobile Menu Drawer & Keyboard Accessible Escape ---
+  // --- 11. Mobile Menu Drawer ---
   const mobileToggle = document.getElementById('mobile-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
 
@@ -720,7 +748,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleMobileMenu();
     });
 
-    // Close mobile menu when clicking any link
     const mobileLinks = mobileMenu.querySelectorAll('a');
     mobileLinks.forEach((link) => {
       link.addEventListener('click', () => {
@@ -729,7 +756,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Close on Escape
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !mobileMenu.hasAttribute('hidden')) {
         toggleMobileMenu();
@@ -737,7 +763,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 13. Toast Notification Helper ---
+  // --- 12. Toast Notification Helper ---
   let toastTimer = null;
   const toastEl = document.getElementById('toast');
   const toastTextEl = document.getElementById('toast-text');

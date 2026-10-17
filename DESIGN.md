@@ -2,12 +2,12 @@
 
 ## Brand Identity
 - **Name**: YUME (Teks logo murni, typographic mark)
-- **Concept**: Cyber Infrastructure & Autonomous Cloud Nodes. Platform penyedia komputasi tepi (edge computing), perutean node latensi ultra-rendah, dan jaringan terisolasi untuk operasi digital masa depan.
-- **Mood**: High-Tech, Precision Engineering, Cybernetic, Tactical, Clean yet Immersive.
+- **Concept**: Cyber Payment Gateway & Autonomous Settlement Rails. Platform gerbang pembayaran digital berlatensi mikrodetik, orkestrasi multi-bank (QRIS Dinamis, Virtual Account, E-Wallet, Card Rails), dan pencairan dana (settlement) otomatis 24/7 untuk merchant dan bisnis modern.
+- **Mood**: High-Tech FinTech, Precision Cryptography, Cybernetic Reliability, Sleek & Professional.
 
 ## Design Dials (antislop Part 3)
-- **ENERGY**: 2 (Balanced - Imersif dan futuristik tanpa ornamen berlebihan)
-- **RHYTHM**: 3 (Variasi layout tiap seksi: hero asimetris, telemetry ticker horizontal, interactive node radar, modular gateway matrix, interactive deployment console)
+- **ENERGY**: 2 (Balanced - Futuristik berkelas, fokus pada kejelasan data finansial)
+- **RHYTHM**: 3 (Variasi layout: hero split asimetris, telemetry ticker transaksi, interactive payment checkout demo, multi-rail failover matrix, transparent MDR calculator, interactive API console)
 - **MOTION**: 2 (Choreographed reveals, reactive canvas particle mesh, live typing decoder effect, smooth running telemetry ticker)
 
 ## Color System (WCAG AA Compliant - Zero Green, Zero Purple)
@@ -23,12 +23,13 @@
 
 ## Typography
 - **Headings & Display**: 'Space Grotesk', system-ui, sans-serif (Karakter modern cyber geometric)
-- **Body Text**: 'Plus Jakarta Sans', system-ui, sans-serif (Tinggi keterbacaan)
-- **Telemetry & Metrics**: 'JetBrains Mono', monospace (Data stream, terminal prompt, koordinat)
+- **Body Text**: 'Plus Jakarta Sans', system-ui, sans-serif (Tinggi keterbacaan untuk data finansial)
+- **Telemetry & Metrics**: 'JetBrains Mono', monospace (Kode API, payload webhook, nominal rupiah, token)
 
-## Strict Anti-Slop Constraints
+## Strict Anti-Slop & Project Constraints
 1. Tanpa karakter em dash (`—`).
-2. Tanpa buzzword kosong ("revolutionary", "AI-powered magic").
-3. Logo YUME berupa teks murni dengan style kerning dan accent slash khusus.
-4. Semua link dan tombol 100% interaktif dan berfungsi.
-5. Dose cap untuk glow dan efek visual: fokus pada elemen primer (CTA dan active node).
+2. Tanpa buzzword kosong ("revolutionary magic"). Gunakan data teknis finansial spesifik (MDR, SLA 99.99%, settlement 24/7).
+3. Logo YUME berupa teks murni dengan style kerning dan badge sub-sistem `[PAYMENT.RAILS]`.
+4. DILARANG MENAMBAH TOMBOL YANG TIDAK PERLU / GIMMICK (seperti tombol audio, ambient sound effect, atau kontrol tanpa fungsi nyata).
+5. Semua link dan tombol 100% interaktif dan berfungsi.
+6. Dose cap untuk glow dan efek visual: fokus pada elemen primer (CTA dan active payment card).
