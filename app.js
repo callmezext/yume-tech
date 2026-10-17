@@ -701,22 +701,89 @@ echo "QR String: " . $charge->qr_string;`
     }
   });
 
-  // --- 10. Theme Mode Switcher (Obsidian Dark / Light Matrix) ---
+  // --- 10. Theme Mode Switcher with Circular Reveal & Vector SVG Icons ---
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  const themeIcon = document.getElementById('theme-icon');
 
   function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('yume-theme', theme);
-    if (themeIcon) {
-      themeIcon.textContent = theme === 'light' ? '☀️' : '◑';
-    }
+    // SVG icons (.theme-svg-moon & .theme-svg-sun) update visually via CSS [data-theme] rules,
+    // avoiding text emoji substitution.
   }
 
-  function toggleTheme() {
+  function runFallbackCircularTransition(x, y, endRadius, newTheme) {
+    const ripple = document.createElement('div');
+    ripple.className = 'theme-circle-ripple';
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    ripple.style.setProperty('--target-radius', `${endRadius * 2.2}px`);
+    ripple.style.backgroundColor = newTheme === 'light' ? '#F8FAFC' : '#090B0E';
+    document.body.appendChild(ripple);
+
+    requestAnimationFrame(() => {
+      ripple.classList.add('expanding');
+    });
+
+    setTimeout(() => {
+      setTheme(newTheme);
+    }, 240);
+
+    setTimeout(() => {
+      ripple.classList.add('fading');
+      setTimeout(() => {
+        ripple.remove();
+      }, 300);
+    }, 520);
+  }
+
+  function toggleTheme(event) {
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
+
+    // Calculate circular reveal origin from the button coordinates
+    const btn = themeToggleBtn || (event ? event.currentTarget : null);
+    const rect = btn ? btn.getBoundingClientRect() : null;
+    const x = rect ? rect.left + rect.width / 2 : (event ? event.clientX : window.innerWidth / 2);
+    const y = rect ? rect.top + rect.height / 2 : (event ? event.clientY : 40);
+
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!document.startViewTransition || prefersReducedMotion) {
+      if (!prefersReducedMotion) {
+        runFallbackCircularTransition(x, y, endRadius, newTheme);
+      } else {
+        setTheme(newTheme);
+      }
+      showToast(`Mode Tema: ${newTheme.toUpperCase()}`);
+      return;
+    }
+
+    // Modern Chrome / Chromium View Transitions API with circular clipPath
+    const transition = document.startViewTransition(() => {
+      setTheme(newTheme);
+    });
+
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`
+          ]
+        },
+        {
+          duration: 550,
+          easing: 'cubic-bezier(0.2, 0, 0, 1)',
+          pseudoElement: '::view-transition-new(root)'
+        }
+      );
+    });
+
     showToast(`Mode Tema: ${newTheme.toUpperCase()}`);
   }
 

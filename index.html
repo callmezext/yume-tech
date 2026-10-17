@@ -56,23 +56,38 @@
         </a>
       </div>
 
-      <!-- Desktop Nav -->
+      <!-- Desktop Nav (Clean 4 Core Destinations) -->
       <nav class="desktop-nav" aria-label="Navigasi Utama">
         <ul class="nav-links">
           <li><a href="#hero" class="nav-link">Sambut</a></li>
-          <li><a href="#ticker-section" class="nav-link">Arus Transaksi</a></li>
           <li><a href="#simulator" class="nav-link">Demo Checkout</a></li>
           <li><a href="#methods" class="nav-link">Kanal Pembayaran</a></li>
-          <li><a href="#pricing" class="nav-link">Kalkulator MDR</a></li>
           <li><a href="#api-console" class="nav-link">API Playground</a></li>
         </ul>
       </nav>
 
       <!-- Nav Actions & Controls -->
       <div class="nav-actions">
-        <!-- Theme Mode Toggle -->
+        <!-- Theme Mode Toggle with Crisp Vector SVG Icons (No Emoji) -->
         <button type="button" class="ctrl-btn" id="theme-toggle-btn" aria-label="Beralih tema terang atau gelap" title="Beralih Mode Tampilan">
-          <span class="ctrl-icon" id="theme-icon" aria-hidden="true">◑</span>
+          <span class="ctrl-icon" id="theme-icon" aria-hidden="true">
+            <!-- Moon icon for dark mode -->
+            <svg class="theme-svg theme-svg-moon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <!-- Sun icon for light mode -->
+            <svg class="theme-svg theme-svg-sun" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
           <span class="ctrl-text">TEMA</span>
         </button>
 
@@ -95,10 +110,8 @@
       <nav aria-label="Navigasi Mobile">
         <ul class="mobile-nav-links">
           <li><a href="#hero" class="mobile-link">Sambut</a></li>
-          <li><a href="#ticker-section" class="mobile-link">Arus Transaksi Realtime</a></li>
           <li><a href="#simulator" class="mobile-link">Demo Checkout Interaktif</a></li>
           <li><a href="#methods" class="mobile-link">Kanal Pembayaran &amp; Failover</a></li>
-          <li><a href="#pricing" class="mobile-link">Kalkulator Biaya MDR</a></li>
           <li><a href="#api-console" class="mobile-link">API Playground &amp; Webhook</a></li>
         </ul>
         <div class="mobile-extra">

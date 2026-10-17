@@ -101,6 +101,7 @@ html {
   scroll-padding-top: calc(var(--header-height) + var(--system-bar-height) + 16px);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
@@ -110,6 +111,46 @@ body {
   background-color: var(--bg-base);
   display: flex;
   flex-direction: column;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* --- View Transitions API (Circular Theme Reveal Animation) --- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 99999;
+}
+
+/* Fallback Circular Ripple for browsers without View Transitions */
+.theme-circle-ripple {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+              height 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.25s ease;
+  will-change: width, height, opacity;
+}
+
+.theme-circle-ripple.expanding {
+  width: var(--target-radius);
+  height: var(--target-radius);
+}
+
+.theme-circle-ripple.fading {
+  opacity: 0;
 }
 
 /* Universal Accessible Focus Indicator (R-32) */
@@ -379,6 +420,83 @@ ul {
 .ctrl-btn.active {
   border-color: var(--border-accent);
   color: var(--accent-primary);
+}
+
+/* Theme Vector SVG Icons (No Emoji) */
+.ctrl-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.theme-svg {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, color 0.3s ease;
+  pointer-events: none;
+}
+
+/* In Dark Mode (default): Moon icon is active, Sun icon is tucked away */
+:root:not([data-theme="light"]) .theme-svg-moon,
+[data-theme="dark"] .theme-svg-moon {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  color: var(--accent-primary);
+}
+
+:root:not([data-theme="light"]) .theme-svg-sun,
+[data-theme="dark"] .theme-svg-sun {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scale(0.3);
+  pointer-events: none;
+}
+
+/* In Light Mode: Sun icon is active, Moon icon is tucked away */
+[data-theme="light"] .theme-svg-sun {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  color: var(--accent-primary);
+}
+
+[data-theme="light"] .theme-svg-moon {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.3);
+  pointer-events: none;
+}
+
+/* Smooth UI Component Transitions on Theme Switch */
+.main-header,
+.system-bar,
+.system-bar-inner,
+.metric-card,
+.feature-card,
+.method-card,
+.flow-step,
+.pricing-card,
+.faq-item,
+.interactive-sandbox,
+.sandbox-control-panel,
+.sandbox-display-panel,
+.modal-box,
+.ctrl-btn,
+.code-block,
+.api-box,
+.hero-badge,
+.badge-code,
+.nav-cta,
+.footer-content {
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.35s ease,
+              box-shadow 0.4s ease;
 }
 
 /* Buttons (Universal, Accessible, 44px minimum tap target) */
